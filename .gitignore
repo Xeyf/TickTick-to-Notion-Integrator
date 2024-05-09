@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 *~
 processed_tasks.json
+docker-compose.yaml
