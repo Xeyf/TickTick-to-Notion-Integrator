@@ -89,14 +89,33 @@ Replace the placeholders with your actual information.
 Now, build your Docker image with the `SYNC_INTERVAL` and other parameters:
 
 ```bash
-docker build --build-arg TICKTICK_ACCESS_TOKEN=your_ticktick_access_token_here \
-             --build-arg NOTION_TOKEN=your_notion_token_here \
-             --build-arg NOTION_DATABASE_ID=your_notion_database_id_here \
-             --build-arg PROJECT_IDS=project_id1,project_id2,project_id3 \
-             --build-arg SYNC_INTERVAL=60 \
-             -t your_image_name .
+docker run -p 80:80 \
+  -e TICKTICK_ACCESS_TOKEN="your_ticktick_access_token_here" \
+  -e NOTION_TOKEN="your_other_notion_token_here" \
+  -e NOTION_DATABASE_ID="your_other_notion_database_id_here" \
+  -e PROJECT_IDS="project_id1,project_id2,project_id3" \
+  -e SYNC_INTERVAL="120" \
+  your_docker_username/tickticktonotion:latest
 ```
+Alternatively, you can use Docker Compose and define these variables in a .env file or directly in the docker-compose.yml file.
 
+Here’s a docker-compose.yml example:
+
+```yaml
+version: '3.8'
+services:
+  sync-app:
+    image: your_docker_username/tickticktonotion:latest
+    ports:
+      - "80:80"
+    environment:
+      TICKTICK_ACCESS_TOKEN: your_ticktick_access_token_here
+      NOTION_TOKEN: your_other_notion_token_here
+      NOTION_DATABASE_ID: your_other_notion_database_id_here
+      PROJECT_IDS: "project_id1,project_id2,project_id3"
+      SYNC_INTERVAL: "120"
+
+```
 Replace placeholders with your actual data:
 - `your_ticktick_access_token_here` with your TickTick access token.
 - `your_notion_token_here` with your Notion token.
