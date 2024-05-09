@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 from notion_client import Client as NotionClient
 from dateutil import parser
 import time
-from dotenv import load_dotenv
 # Configuración de logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
@@ -19,7 +18,6 @@ def clean_project_ids(project_ids_str):
     # Elimina caracteres no deseados y divide por comas
     cleaned_ids = project_ids_str.replace("[", "").replace("]", "").replace("'", "").replace(" ", "").replace("\"","")
     return cleaned_ids.split(",")
-load_dotenv()
 # Leer variables de entorno
 ticktick_access_token = os.getenv('TICKTICK_ACCESS_TOKEN')
 notion_token = os.getenv('NOTION_TOKEN')
@@ -28,7 +26,6 @@ project_ids = clean_project_ids(os.getenv('PROJECT_IDS'))
 sync_interval = float(os.getenv('SYNC_INTERVAL', 300))
 
 # Cliente de Notion
-print(ticktick_access_token)
 
 notion = NotionClient(auth=notion_token)
 
@@ -50,7 +47,7 @@ def write_processed_tasks(file_path, processed_tasks):
 
 def get_tasks_from_project(project_id):
     url = f'https://api.ticktick.com/open/v1/project/{project_id}/data'
-    print(url)
+    
     headers = {
         'Authorization': f'Bearer {ticktick_access_token}',
         'Cookie': 'AWSALB=INSERT_YOUR_COOKIE_HERE',  # Update this if necessary
