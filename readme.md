@@ -95,7 +95,7 @@ docker run -p 80:80 \
   -e NOTION_DATABASE_ID="your_other_notion_database_id_here" \
   -e PROJECT_IDS="project_id1,project_id2,project_id3" \
   -e SYNC_INTERVAL="120" \
-  your_docker_username/tickticktonotion:latest
+  xeyf/tickticktonotion:latest
 ```
 Alternatively, you can use Docker Compose and define these variables in a .env file or directly in the docker-compose.yml file.
 
@@ -103,17 +103,22 @@ Here’s a docker-compose.yml example:
 
 ```yaml
 version: '3.8'
+
 services:
-  sync-app:
-    image: your_docker_username/tickticktonotion:latest
+  tickticktonotion:
+    image: xeyf/tickticktonotion:latest
     ports:
-      - "80:80"
+      - "8080:80"
     environment:
-      TICKTICK_ACCESS_TOKEN: your_ticktick_access_token_here
-      NOTION_TOKEN: your_other_notion_token_here
-      NOTION_DATABASE_ID: your_other_notion_database_id_here
-      PROJECT_IDS: "project_id1,project_id2,project_id3"
-      SYNC_INTERVAL: "120"
+      TICKTICK_ACCESS_TOKEN: "9f4288b1"
+      NOTION_TOKEN: "secret_Hgr"
+      NOTION_DATABASE_ID: "92ba7e23-xxxx-xxxx-xxxx-6d60b97262a7"
+      PROJECT_IDS: '["5eda705b22d41a54xxxxxxxx","5eda70b022d41a54xxxxxxxx","663c8a0d8f088ed7xxxxxxxx"]'
+
+      SYNC_INTERVAL: "30"
+    volumes:
+      - /home/pi/tickticktonotion_logs:/usr/src/app/logs
+    restart: always
 
 ```
 Replace placeholders with your actual data:
