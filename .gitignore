@@ -1,0 +1,7 @@
+*.log
+__pycache__/
+.env
+.vscode/
+*.pyc
+*~
+processed_tasks.json
